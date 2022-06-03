@@ -1,5 +1,5 @@
 A simple, customisable table audit system for PostgreSQL implemented using
-triggers.
+triggers and jsonb data types.
 
 See:
 

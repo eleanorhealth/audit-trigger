@@ -143,6 +143,9 @@ BEGIN
         FROM jsonb_each(old_r) as old_t
         JOIN jsonb_each(new_r) as new_t
           ON (old_t.key = new_t.key AND old_t.value <> new_t.value);
+        IF (audit_row.changed_fields IS NULL) THEN
+            RETURN NULL;
+        END IF;
     ELSIF (TG_OP = 'DELETE' AND TG_LEVEL = 'ROW') THEN
         audit_row.row_data = to_jsonb(OLD) - excluded_cols;
     ELSIF (TG_OP = 'INSERT' AND TG_LEVEL = 'ROW') THEN

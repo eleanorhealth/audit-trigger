@@ -103,25 +103,25 @@ BEGIN
     END IF;
 
     audit_row = ROW(
-        nextval('audit.logged_actions_event_id_seq'), -- event_id
-        TG_TABLE_SCHEMA::text,                        -- schema_name
-        TG_TABLE_NAME::text,                          -- table_name
-        TG_RELID,                                     -- relation OID for much quicker searches
-        session_user::text,                           -- session_user_name
-        current_setting('service_name', 't'),         -- application service name
-        current_setting('user_id', 't'),              -- application user ID
-        current_setting('correlation_id', 't'),       -- application correlation ID
-        current_timestamp,                            -- action_tstamp_tx
-        statement_timestamp(),                        -- action_tstamp_stm
-        clock_timestamp(),                            -- action_tstamp_clk
-        txid_current(),                               -- transaction ID
-        current_setting('application_name'),          -- client application
-        inet_client_addr(),                           -- client_addr
-        inet_client_port(),                           -- client_port
-        current_query(),                              -- top-level query or queries (if multistatement) from client
-        substring(TG_OP,1,1),                         -- action
-        NULL, NULL,                                   -- row_data, changed_fields
-        'f'                                           -- statement_only
+        nextval('audit.logged_actions_event_id_seq'),    -- event_id
+        TG_TABLE_SCHEMA::text,                           -- schema_name
+        TG_TABLE_NAME::text,                             -- table_name
+        TG_RELID,                                        -- relation OID for much quicker searches
+        session_user::text,                              -- session_user_name
+        current_setting('eleanor.service_name', 't'),    -- eleanor service name
+        current_setting('eleanor.user_id', 't'),         -- eleanor user ID
+        current_setting('eleanor.correlation_id', 't'),  -- eleanor correlation ID
+        current_timestamp,                               -- action_tstamp_tx
+        statement_timestamp(),                           -- action_tstamp_stm
+        clock_timestamp(),                               -- action_tstamp_clk
+        txid_current(),                                  -- transaction ID
+        current_setting('application_name'),             -- client application
+        inet_client_addr(),                              -- client_addr
+        inet_client_port(),                              -- client_port
+        current_query(),                                 -- top-level query or queries (if multistatement) from client
+        substring(TG_OP,1,1),                            -- action
+        NULL, NULL,                                      -- row_data, changed_fields
+        'f'                                              -- statement_only
         );
 
     IF NOT TG_ARGV[0]::boolean IS DISTINCT FROM 'f'::boolean THEN

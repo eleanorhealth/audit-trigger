@@ -90,6 +90,7 @@ COMMENT ON COLUMN audit.logged_actions.statement_only IS '''t'' if audit event i
 CREATE INDEX IF NOT EXISTS logged_actions_relid_idx ON audit.logged_actions(relid);
 CREATE INDEX IF NOT EXISTS logged_actions_action_tstamp_tx_stm_idx ON audit.logged_actions(action_tstamp_stm);
 CREATE INDEX IF NOT EXISTS logged_actions_action_idx ON audit.logged_actions(action);
+CREATE INDEX IF NOT EXISTS logged_actions_correlation_id_idx ON audit.logged_actions(correlation_id);
 
 CREATE OR REPLACE FUNCTION audit.if_modified_func() RETURNS TRIGGER AS $body$
 DECLARE
